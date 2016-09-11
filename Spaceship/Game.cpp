@@ -5,11 +5,11 @@
 #include "pch.h"
 #include "Game.h"
 
-#include "Spaceship.h"
-#include "Projectile.h"
-#include "Meteor.h"
-#include "InputManager.h"
-#include "GameplayHelpers.h"
+//#include "Spaceship.h"
+//#include "Projectile.h"
+//#include "Meteor.h"
+//#include "InputManager.h"
+//#include "GameplayHelpers.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -35,9 +35,10 @@ void Game::Initialize(HWND window, int width, int height)
 
     CreateResources();
 	
-	Spaceship::init(m_d3dContext.Get(), m_d3dDevice.Get());
-	Projectile::init(m_d3dContext.Get());
-	Meteor::init(m_d3dContext.Get());
+	RenderData::Init(m_d3dContext.Get());
+	//Spaceship::init(m_d3dContext.Get(), m_d3dDevice.Get());
+	//Projectile::init(m_d3dContext.Get());
+	//Meteor::init(m_d3dContext.Get());
 
 	mGameWorld.init();
 
@@ -377,6 +378,7 @@ void Game::CreateResources()
 	m_proj = Matrix::CreatePerspectiveFieldOfView(XM_PI / 4.f, float(backBufferWidth) / float(backBufferHeight), 0.1f, 50.f);
 	
 	GameplayHelpers::init(m_outputWidth, m_outputHeight, m_world, m_view, m_proj);
+
 }
 
 void Game::OnDeviceLost()

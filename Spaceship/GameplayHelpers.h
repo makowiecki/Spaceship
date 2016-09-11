@@ -14,9 +14,13 @@ public:
 
 	static DirectX::SimpleMath::Vector2 getViewportSize();
 
-	static DirectX::SimpleMath::Vector2 projectOnScreen(const DirectX::SimpleMath::Vector3 & worldLocation/*, const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection*/);
+	static const DirectX::SimpleMath::Matrix& getWorldMatrix();
+	static const DirectX::SimpleMath::Matrix& getViewMatrix();
+	static const DirectX::SimpleMath::Matrix& getProjectionMatrix();
 
-	static DirectX::SimpleMath::Vector3 unprojectOnScreen(const DirectX::SimpleMath::Vector2 & screenPosition/*, const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection*/);
+	static DirectX::SimpleMath::Vector2 projectOnScreen(const DirectX::SimpleMath::Vector3 & worldLocation);
+
+	static DirectX::SimpleMath::Vector3 unprojectOnScreen(const DirectX::SimpleMath::Vector2 & screenPosition);
 
 private:
 		

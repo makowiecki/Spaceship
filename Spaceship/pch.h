@@ -59,7 +59,10 @@
 #include "VertexTypes.h"
 #include "WICTextureLoader.h"
 
+#include "GameplayHelpers.h"
+#include "InputManager.h"
 #include "Random.h"
+#include "RenderData.h"
 
 namespace DX
 {

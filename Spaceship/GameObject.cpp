@@ -15,6 +15,8 @@ GameObject::GameObject(const DirectX::SimpleMath::Vector3& newLocation, World* w
 	setLocation(newLocation);
 
 	mRenderObjectColor = DirectX::Colors::White;
+
+	mRenderData.createCube();
 }
 
 GameObject::~GameObject()
@@ -137,12 +139,14 @@ void GameObject::update(float deltaTime)
 
 void GameObject::render(const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection)
 {
-	using namespace DirectX::SimpleMath;
+	mRenderData.Render(mLocation, mRotation, mScale, mRenderObjectColor);
 
-	if(!mRenderObject) { return; }
+	//using namespace DirectX::SimpleMath;
 
-	Matrix local = Matrix::CreateScale(mScale) * Matrix::CreateFromYawPitchRoll(mRotation.y * DirectX::XM_PI / 180.f, mRotation.x * DirectX::XM_PI / 180.f, mRotation.z * DirectX::XM_PI / 180.f) *  Matrix::CreateTranslation(mLocation) * world;
-	mRenderObject->Draw(local, view, projection, mRenderObjectColor);
+	//if(!mRenderObject) { return; }
+
+	//Matrix local = Matrix::CreateScale(mScale) * Matrix::CreateFromYawPitchRoll(mRotation.y * DirectX::XM_PI / 180.f, mRotation.x * DirectX::XM_PI / 180.f, mRotation.z * DirectX::XM_PI / 180.f) *  Matrix::CreateTranslation(mLocation) * world;
+	//mRenderObject->Draw(local, view, projection, mRenderObjectColor);
 }
 
 void GameObject::setInstigator(GameObject & instigator)

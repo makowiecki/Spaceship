@@ -16,7 +16,10 @@ Spaceship::Spaceship(const DirectX::SimpleMath::Vector3& newLocation, World* wor
 	mProjectileSpawnOffset(1.f),
 	mShootTimer(0.f)
 {
-	mRenderObject = mRenderObjectAsset;
+	//mRenderObject = mRenderObjectAsset;
+
+	mRenderData.createCone();
+	mScale.y /= 2;
 
 	mCollisionSphere.Center = mLocation;
 	mCollisionSphere.Radius = mScale.x / 2; // div by 2 because in creatin is diameter
@@ -100,8 +103,11 @@ void Spaceship::render(const DirectX::SimpleMath::Matrix & world, const DirectX:
 {
 	GameObject::render(world, view, projection);
 
+	if(!mFont) { return; }
+
 	using namespace DirectX;
 
+	//this should be in HUD class
 	mSpriteBatch->Begin();
 
 	mGetDestroyedMeteors();

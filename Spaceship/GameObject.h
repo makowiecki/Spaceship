@@ -58,13 +58,13 @@ protected:
 
 	GameObject *mInstigator;
 
+	RenderData mRenderData;
+
 	std::shared_ptr<DirectX::GeometricPrimitive> mRenderObject;
 	DirectX::BoundingSphere mCollisionSphere;
 	
 private:
 
 	World* mReferenceToWorld;
-
-	static std::shared_ptr<DirectX::GeometricPrimitive> mCollisionObjectAsset;
 };
 

@@ -8,9 +8,14 @@
     <Filter Include="Framework">
       <UniqueIdentifier>{892d83cd-9101-46bb-890a-1f5c98f37762}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GeneralClasses">
+      <UniqueIdentifier>{90639924-b6e8-4265-a41c-c9f9c7a85bb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameClasses">
+      <UniqueIdentifier>{cdb24880-36a6-4c05-8102-6ac08cd4040d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject.h" />
     <ClInclude Include="Game.h">
       <Filter>Framework</Filter>
     </ClInclude>
@@ -20,32 +25,75 @@
     <ClInclude Include="StepTimer.h">
       <Filter>Framework</Filter>
     </ClInclude>
-    <ClInclude Include="World.h" />
-    <ClInclude Include="Spaceship.h" />
-    <ClInclude Include="Projectile.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="GameplayHelpers.h" />
-    <ClInclude Include="Meteor.h" />
-    <ClInclude Include="Random.h" />
-    <ClInclude Include="MeteorsManager.h" />
+    <ClInclude Include="GameObject.h">
+      <Filter>GameClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Meteor.h">
+      <Filter>GameClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Projectile.h">
+      <Filter>GameClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Spaceship.h">
+      <Filter>GameClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="GameplayHelpers.h">
+      <Filter>GeneralClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>GeneralClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="RenderData.h">
+      <Filter>GeneralClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>GeneralClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="MeteorsManager.h">
+      <Filter>GameClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="World.h">
+      <Filter>GameClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="Game.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Framework</Filter>
     </ClCompile>
-    <ClCompile Include="World.cpp" />
-    <ClCompile Include="Spaceship.cpp" />
-    <ClCompile Include="Projectile.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="GameplayHelpers.cpp" />
-    <ClCompile Include="Meteor.cpp" />
-    <ClCompile Include="Random.cpp" />
-    <ClCompile Include="MeteorsManager.cpp" />
+    <ClCompile Include="GameObject.cpp">
+      <Filter>GameClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Meteor.cpp">
+      <Filter>GameClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Projectile.cpp">
+      <Filter>GameClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Spaceship.cpp">
+      <Filter>GameClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="GameplayHelpers.cpp">
+      <Filter>GeneralClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>GeneralClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="RenderData.cpp">
+      <Filter>GeneralClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>GeneralClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="MeteorsManager.cpp">
+      <Filter>GameClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="World.cpp">
+      <Filter>GameClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="directx.ico">
