@@ -8,37 +8,37 @@ public:
 	GameObject(const DirectX::SimpleMath::Vector3& newLocation, World* world);
 	virtual ~GameObject();
 
-	void setLocation(const DirectX::SimpleMath::Vector3& newLocation);
-	void move(const DirectX::SimpleMath::Vector3& offset);
-	const DirectX::SimpleMath::Vector3& getLocation()const;
+	void SetLocation(const DirectX::SimpleMath::Vector3& newLocation);
+	void Move(const DirectX::SimpleMath::Vector3& offSet);
+	const DirectX::SimpleMath::Vector3& GetLocation()const;
 
-	void setRotation(const DirectX::SimpleMath::Vector3& newRotation);
-	void rotate(const DirectX::SimpleMath::Vector3& rotation);
-	const DirectX::SimpleMath::Vector3& getRotation()const;
+	void SetRotation(const DirectX::SimpleMath::Vector3& newRotation);
+	void Rotate(const DirectX::SimpleMath::Vector3& rotation);
+	const DirectX::SimpleMath::Vector3& GetRotation()const;
 
-	void setScale(const DirectX::SimpleMath::Vector3& newScale);
-	void addScale(const DirectX::SimpleMath::Vector3& addedScale);
-	const DirectX::SimpleMath::Vector3& getScale()const;
+	void SetScale(const DirectX::SimpleMath::Vector3& newScale);
+	void AddScale(const DirectX::SimpleMath::Vector3& addedScale);
+	const DirectX::SimpleMath::Vector3& GetScale()const;
 	
-	World* getWorld()const;
+	World* GetWorld()const;
 
-	void destroy();
-	bool isDestroyed()const;
+	void Destroy();
+	bool IsDestroyed()const;
 
-	void setVelocity(float newVelocity);
-	void addVelocity(float value);
-	float getVelocity()const;
+	void SetVelocity(float newVelocity);
+	void AddVelocity(float value);
+	float GetVelocity()const;
 
-	void setInstigator(GameObject &instigator);
+	void SetInstigator(GameObject &instigator);
 
-	bool collide(const GameObject& object);
+	bool Collide(const GameObject& object);
 
-	virtual void onHit(const GameObject& otherObject);
-	virtual void onDestroy();
+	virtual void OnCollision(const GameObject& otherObject);
+	virtual void OnDestroy();
 
-	virtual void update(float deltaTime)=0;
+	virtual void Update(float deltaTime)=0;
 	
-	virtual void render(const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection);
+	virtual void Render(const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection);
 	
 protected:
 
@@ -65,6 +65,6 @@ private:
 
 	World* mReferenceToWorld;
 
-	static std::shared_ptr<DirectX::GeometricPrimitive> mCollisionObjectAsset;
+	static std::shared_ptr<DirectX::GeometricPrimitive> mCollisionObjectAsSet;
 };
 

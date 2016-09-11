@@ -10,9 +10,9 @@ public:
 
 	enum class ActionName{ LEFT, RIGHT, SHOOT };
 
-	static void processKeyboardState(const DirectX::Keyboard::State& keyboardState, float deltaTime);
+	static void ProcessKeyboardState(const DirectX::Keyboard::State& keyboardState, float deltaTime);
 
-	static void bindAction(ActionName actionName, const std::function<void(float)>& function);
+	static void BindAction(ActionName actionName, const std::function<void(float)>& function);
 
 private:
 

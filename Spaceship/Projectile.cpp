@@ -23,19 +23,19 @@ Projectile::~Projectile()
 {
 }
 
-void Projectile::init(ID3D11DeviceContext * deviceContext)
+void Projectile::Init(ID3D11DeviceContext * deviceContext)
 {
 	mRenderObjectAsset = DirectX::GeometricPrimitive::CreateSphere(deviceContext);
 }
 
-void Projectile::onHit(const GameObject & otherObject)
+void Projectile::OnCollision(const GameObject & otherObject)
 {
-	destroy();
+	Destroy();
 }
 
-void Projectile::update(float deltaTime)
+void Projectile::Update(float deltaTime)
 {
-	GameObject::update(deltaTime);
+	GameObject::Update(deltaTime);
 
-	move(DirectX::SimpleMath::Vector3(0.f, mVelocity * deltaTime, 0.f));
+	Move(DirectX::SimpleMath::Vector3(0.f, mVelocity * deltaTime, 0.f));
 }

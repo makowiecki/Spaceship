@@ -8,6 +8,9 @@
     <Filter Include="Framework">
       <UniqueIdentifier>{892d83cd-9101-46bb-890a-1f5c98f37762}</UniqueIdentifier>
     </Filter>
+    <Filter Include="HeleperClasses">
+      <UniqueIdentifier>{5d538a76-9ffa-4a89-8231-07459b1c2c7a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h" />
@@ -23,11 +26,17 @@
     <ClInclude Include="World.h" />
     <ClInclude Include="Spaceship.h" />
     <ClInclude Include="Projectile.h" />
-    <ClInclude Include="InputManager.h" />
-    <ClInclude Include="GameplayHelpers.h" />
     <ClInclude Include="Meteor.h" />
-    <ClInclude Include="Random.h" />
     <ClInclude Include="MeteorsManager.h" />
+    <ClInclude Include="GameplayHelpers.h">
+      <Filter>HeleperClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="InputManager.h">
+      <Filter>HeleperClasses</Filter>
+    </ClInclude>
+    <ClInclude Include="Random.h">
+      <Filter>HeleperClasses</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -41,11 +50,17 @@
     <ClCompile Include="World.cpp" />
     <ClCompile Include="Spaceship.cpp" />
     <ClCompile Include="Projectile.cpp" />
-    <ClCompile Include="InputManager.cpp" />
-    <ClCompile Include="GameplayHelpers.cpp" />
     <ClCompile Include="Meteor.cpp" />
-    <ClCompile Include="Random.cpp" />
     <ClCompile Include="MeteorsManager.cpp" />
+    <ClCompile Include="GameplayHelpers.cpp">
+      <Filter>HeleperClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="InputManager.cpp">
+      <Filter>HeleperClasses</Filter>
+    </ClCompile>
+    <ClCompile Include="Random.cpp">
+      <Filter>HeleperClasses</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="directx.ico">

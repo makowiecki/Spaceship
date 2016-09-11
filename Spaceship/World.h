@@ -11,35 +11,35 @@ public:
 	World();
 	~World();
 
-	void init();
+	void Init();
 	
-	void onMeteorDestroyed();
+	void OnMeteorDestroyed();
 
-	void reset();
+	void Reset();
 
-	void handleCollisions();
+	void HandleCollisions();
 
-	void update(float deltaTime);
+	void Update(float deltaTime);
 
-	void renderObjects(const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection);
+	void RenderObjects(const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection);
 
-	void removeDestryedObjects();
+	void RemoveDestryedObjects();
 
 	template<typename Type>
-	GameObject* spawnObject(const DirectX::SimpleMath::Vector3& newLocation);
+	GameObject* SpawnObject(const DirectX::SimpleMath::Vector3& newLocation);
 
 private:
 
 	std::vector<std::unique_ptr<GameObject>> mGameObjects;
-	using GameObjectsValueType = std::vector<std::unique_ptr<GameObject>>::value_type;
+	using mGameObjectsValueType = std::vector<std::unique_ptr<GameObject>>::value_type;
 
 	MeteorsManager mMeteorsManager;
 
-	bool bIsSetToReset;
+	bool mIsSetToReset;
 };
 
 template<typename Type>
-inline GameObject * World::spawnObject(const DirectX::SimpleMath::Vector3& newLocation)
+inline GameObject * World::SpawnObject(const DirectX::SimpleMath::Vector3& newLocation)
 {
 	std::unique_ptr<GameObject> newObject = std::make_unique<Type>(newLocation, this);
 

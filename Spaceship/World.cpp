@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "World.h"
 
-#include "GameplayHelpers.h"
 #include "Spaceship.h"
 
 
@@ -14,78 +13,78 @@ World::~World()
 {
 }
 
-void World::init()
+void World::Init()
 {
 	mGameObjects.clear();
 
-	DirectX::SimpleMath::Vector3 screenCenterLocation = GameplayHelpers::unprojectOnScreen(DirectX::SimpleMath::Vector2(GameplayHelpers::getViewportSize().x / 2, 40.f));
+	DirectX::SimpleMath::Vector3 screenCenterLocation = GameplayHelpers::UnprojectOnScreen(DirectX::SimpleMath::Vector2(GameplayHelpers::GetViewportSize().x / 2, 40.f));
 	screenCenterLocation.z = 0.f;
 
-	Spaceship* spaceShip = dynamic_cast<Spaceship*>(spawnObject<Spaceship>(screenCenterLocation));
+	Spaceship* spaceShip = dynamic_cast<Spaceship*>(SpawnObject<Spaceship>(screenCenterLocation));
 
 	if(spaceShip)
 	{
-		spaceShip->setGetMeteorsDestroyedFunction(std::bind(&MeteorsManager::getDestroyedMeteorsNumber, &mMeteorsManager));
+		spaceShip->SetGetMeteorsDestroyedFunction(std::bind(&MeteorsManager::GetDestroyedMeteorsNumber, &mMeteorsManager));
 	}
 
-	mMeteorsManager.reset();
+	mMeteorsManager.Reset();
 
-	bIsSetToReset = false;
+	mIsSetToReset = false;
 }
 
-void World::onMeteorDestroyed()
+void World::OnMeteorDestroyed()
 {
-	mMeteorsManager.meteorDestroyed();
+	mMeteorsManager.MeteorDestroyed();
 }
 
-void World::reset()
+void World::Reset()
 {
-	bIsSetToReset = true;
+	mIsSetToReset = true;
 }
 
-void World::handleCollisions()
+void World::HandleCollisions()
 {
 	for(size_t i = 0; i < mGameObjects.size(); i++)
 	{
 		for(size_t j = i + 1; j < mGameObjects.size(); j++)
 		{
-			if(mGameObjects[i]->collide(*mGameObjects[j]))
+			if(mGameObjects[i]->Collide(*mGameObjects[j]))
 			{
-				mGameObjects[i]->onHit(*mGameObjects[j]);
-				mGameObjects[j]->onHit(*mGameObjects[i]);
+				mGameObjects[i]->OnCollision(*mGameObjects[j]);
+				mGameObjects[j]->OnCollision(*mGameObjects[i]);
 			}
 		}
 	}
 }
 
-void World::update(float deltaTime)
+void World::Update(float deltaTime)
 {
-	mMeteorsManager.update(deltaTime);
+	mMeteorsManager.Update(deltaTime);
 
-	for(const GameObjectsValueType& object : mGameObjects)
+	for(const mGameObjectsValueType& object : mGameObjects)
 	{
-		object->update(deltaTime);
+		object->Update(deltaTime);
 	}
 
-	handleCollisions();
+	HandleCollisions();
 
-	if(bIsSetToReset)
+	if(mIsSetToReset)
 	{
-		init();
-	}
-}
-
-void World::renderObjects(const DirectX::SimpleMath::Matrix & world, const DirectX::SimpleMath::Matrix & view, const DirectX::SimpleMath::Matrix & projection)
-{
-	for(const GameObjectsValueType& object : mGameObjects)
-	{
-		object->render(world, view, projection);
+		Init();
 	}
 }
 
-void World::removeDestryedObjects()
+void World::RenderObjects(const DirectX::SimpleMath::Matrix & world, const DirectX::SimpleMath::Matrix & view, const DirectX::SimpleMath::Matrix & projection)
 {
-	std::vector<std::unique_ptr<GameObject>>::iterator newEnd = std::remove_if(mGameObjects.begin(), mGameObjects.end(), std::bind(&GameObject::isDestroyed, std::placeholders::_1));
+	for(const mGameObjectsValueType& object : mGameObjects)
+	{
+		object->Render(world, view, projection);
+	}
+}
+
+void World::RemoveDestryedObjects()
+{
+	std::vector<std::unique_ptr<GameObject>>::iterator newEnd = std::remove_if(mGameObjects.begin(), mGameObjects.end(), std::bind(&GameObject::IsDestroyed, std::placeholders::_1));
 	if(newEnd != mGameObjects.end())
 	{
 		mGameObjects.erase(newEnd, mGameObjects.end());

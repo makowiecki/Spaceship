@@ -12,7 +12,7 @@ InputManager::~InputManager()
 {
 }
 
-void InputManager::processKeyboardState(const DirectX::Keyboard::State & keyboardState, float deltaTime)
+void InputManager::ProcessKeyboardState(const DirectX::Keyboard::State & keyboardState, float deltaTime)
 {
 	if(keyboardState.A || keyboardState.Left)
 	{
@@ -50,7 +50,7 @@ void InputManager::processKeyboardState(const DirectX::Keyboard::State & keyboar
 	}
 }
 
-void InputManager::bindAction(ActionName actionName, const std::function<void(float)>& function)
+void InputManager::BindAction(ActionName actionName, const std::function<void(float)>& function)
 {
 	mActionNamesFunctions.insert(std::make_pair(actionName, function));
 }

@@ -8,34 +8,34 @@ const DirectX::SimpleMath::Matrix * GameplayHelpers::m_view_ptr{ nullptr };
 const DirectX::SimpleMath::Matrix * GameplayHelpers::m_projection_ptr{ nullptr };
 
 
-void GameplayHelpers::init(int width, int height, const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection)
+void GameplayHelpers::Init(int width, int height, const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection)
 {
 	mViewport.width = static_cast<float>(width);
 	mViewport.height = static_cast<float>(height);
 
-	update(world, view, projection);
+	Update(world, view, projection);
 }
 
-void GameplayHelpers::update(const DirectX::SimpleMath::Matrix & world, const DirectX::SimpleMath::Matrix & view, const DirectX::SimpleMath::Matrix & projection)
+void GameplayHelpers::Update(const DirectX::SimpleMath::Matrix & world, const DirectX::SimpleMath::Matrix & view, const DirectX::SimpleMath::Matrix & projection)
 {
 	m_world_ptr = &world;
 	m_view_ptr = &view;
 	m_projection_ptr = &projection;
 }
 
-DirectX::SimpleMath::Vector2 GameplayHelpers::getViewportSize()
+DirectX::SimpleMath::Vector2 GameplayHelpers::GetViewportSize()
 {
 	return DirectX::SimpleMath::Vector2(mViewport.width, mViewport.height);
 }
 
-DirectX::SimpleMath::Vector2 GameplayHelpers::projectOnScreen(const DirectX::SimpleMath::Vector3 & worldLocation/*, const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection*/)
+DirectX::SimpleMath::Vector2 GameplayHelpers::ProjectOnScreen(const DirectX::SimpleMath::Vector3 & worldLocation/*, const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection*/)
 {
 	DirectX::SimpleMath::Vector3 screenPosition = mViewport.Project(worldLocation, *m_projection_ptr, *m_view_ptr, *m_world_ptr);
 
 	return DirectX::SimpleMath::Vector2(screenPosition.x, screenPosition.y);
 }
 
-DirectX::SimpleMath::Vector3 GameplayHelpers::unprojectOnScreen(const DirectX::SimpleMath::Vector2 & screenPosition)
+DirectX::SimpleMath::Vector3 GameplayHelpers::UnprojectOnScreen(const DirectX::SimpleMath::Vector2 & screenPosition)
 {
 	using namespace DirectX::SimpleMath;
 	

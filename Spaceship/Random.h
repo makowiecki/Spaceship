@@ -4,8 +4,8 @@
 namespace Random
 {
 
-int getRandom(int rangeBegin, int rangeEnd);
-float getRandom(float rangeBegin, float rangeEnd);
+int GetRandom(int rangeBegin, int rangeEnd);
+float GetRandom(float rangeBegin, float rangeEnd);
 
 }
 

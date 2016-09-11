@@ -7,11 +7,11 @@ public:
 	Projectile(const DirectX::SimpleMath::Vector3& newLocation, World* world);
 	virtual ~Projectile();
 
-	static void init(ID3D11DeviceContext* deviceContext);
+	static void Init(ID3D11DeviceContext* deviceContext);
 
-	virtual void onHit(const GameObject& otherObject)override;
+	virtual void OnCollision(const GameObject& otherObject)override;
 
-	virtual void update(float deltaTime)override;
+	virtual void Update(float deltaTime)override;
 	
 private:
 

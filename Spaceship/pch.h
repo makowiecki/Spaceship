@@ -59,6 +59,8 @@
 #include "VertexTypes.h"
 #include "WICTextureLoader.h"
 
+#include "GameplayHelpers.h"
+#include "InputManager.h"
 #include "Random.h"
 
 namespace DX

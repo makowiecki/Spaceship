@@ -1,16 +1,13 @@
 #include "pch.h"
 #include "MeteorsManager.h"
 
-#include "GameplayHelpers.h"
-#include "Random.h"
-
 #include "Meteor.h"
 #include "World.h"
 
 MeteorsManager::MeteorsManager(World *world)
 	:mWorldReference(world)
 {
-	reset();
+	Reset();
 }
 
 
@@ -18,24 +15,24 @@ MeteorsManager::~MeteorsManager()
 {
 }
 
-World * MeteorsManager::getWorld() const
+World * MeteorsManager::GetWorld() const
 {
 	return mWorldReference;
 }
 
-void MeteorsManager::meteorDestroyed()
+void MeteorsManager::MeteorDestroyed()
 {
 	++mDestroyedMeteorsCounter;
 
-	recalculateSpawnRate();
+	RecalculateSpawnRate();
 }
 
-int MeteorsManager::getDestroyedMeteorsNumber() const
+int MeteorsManager::GetDestroyedMeteorsNumber() const
 {
 	return mDestroyedMeteorsCounter;
 }
 
-void MeteorsManager::reset()
+void MeteorsManager::Reset()
 {
 	mDestroyedMeteorsCounter = 0;
 	mCreatedMeteorsCounter = 0;
@@ -43,31 +40,31 @@ void MeteorsManager::reset()
 	mSpawnTimer = 0.f;
 }
 
-void MeteorsManager::update(float deltaTime)
+void MeteorsManager::Update(float deltaTime)
 {
 	mSpawnTimer += deltaTime;
 
 	if(mSpawnTimer > 1.f / mMeteorsSpawnRate)
 	{
-		spawnMeteor();
+		SpawnMeteor();
 		mSpawnTimer = 0.f;
 	}
 }
 
-void MeteorsManager::spawnMeteor()
+void MeteorsManager::SpawnMeteor()
 {
 	using namespace DirectX::SimpleMath;
 
-	float randomX = Random::getRandom(50.f, GameplayHelpers::getViewportSize().x - 50.f);
-	Vector3 meteorLocation = GameplayHelpers::unprojectOnScreen(Vector2(randomX, GameplayHelpers::getViewportSize().y - 10.f));
+	float randomX = Random::GetRandom(50.f, GameplayHelpers::GetViewportSize().x - 50.f);
+	Vector3 meteorLocation = GameplayHelpers::UnprojectOnScreen(Vector2(randomX, GameplayHelpers::GetViewportSize().y - 10.f));
 	meteorLocation.z = 0.f;
 
-	getWorld()->spawnObject<Meteor>(meteorLocation);
+	GetWorld()->SpawnObject<Meteor>(meteorLocation);
 
 	++mCreatedMeteorsCounter;
 }
 
-void MeteorsManager::recalculateSpawnRate()
+void MeteorsManager::RecalculateSpawnRate()
 {
 	mMeteorsSpawnRate = static_cast<int>(std::log(mDestroyedMeteorsCounter) / std::log(1.5f));
 

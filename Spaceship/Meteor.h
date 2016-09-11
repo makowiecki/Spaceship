@@ -7,11 +7,11 @@ public:
 	Meteor(const DirectX::SimpleMath::Vector3& newLocation, World *world);
 	virtual ~Meteor();
 
-	static void init(ID3D11DeviceContext* deviceContext);
+	static void Init(ID3D11DeviceContext* deviceContext);
 
-	virtual void onHit(const GameObject& otherObject)override;
+	virtual void OnCollision(const GameObject& otherObject)override;
 
-	void update(float deltaTime)override;
+	void Update(float deltaTime)override;
 
 protected:
 

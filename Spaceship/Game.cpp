@@ -8,8 +8,6 @@
 #include "Spaceship.h"
 #include "Projectile.h"
 #include "Meteor.h"
-#include "InputManager.h"
-#include "GameplayHelpers.h"
 
 using namespace DirectX;
 using namespace DirectX::SimpleMath;
@@ -35,11 +33,11 @@ void Game::Initialize(HWND window, int width, int height)
 
     CreateResources();
 	
-	Spaceship::init(m_d3dContext.Get(), m_d3dDevice.Get());
-	Projectile::init(m_d3dContext.Get());
-	Meteor::init(m_d3dContext.Get());
+	Spaceship::Init(m_d3dContext.Get(), m_d3dDevice.Get());
+	Projectile::Init(m_d3dContext.Get());
+	Meteor::Init(m_d3dContext.Get());
 
-	mGameWorld.init();
+	mGameWorld.Init();
 
     // TODO: Change the timer settings if you want something other than the default variable timestep mode.
     // e.g. for 60 FPS fixed timestep update logic, call:
@@ -66,13 +64,13 @@ void Game::Update(DX::StepTimer const& timer)
 	float elapsedTime = float(timer.GetElapsedSeconds());
 
 	// TODO: Add your game logic here.
-	GameplayHelpers::update(m_world, m_view, m_proj);
+	GameplayHelpers::Update(m_world, m_view, m_proj);
 
-	InputManager::processKeyboardState(m_keyboard->GetState(), elapsedTime);
+	InputManager::ProcessKeyboardState(m_keyboard->GetState(), elapsedTime);
 	
-	mGameWorld.update(elapsedTime);
+	mGameWorld.Update(elapsedTime);
 
-	mGameWorld.removeDestryedObjects();
+	mGameWorld.RemoveDestryedObjects();
 }
 
 // Draws the scene.
@@ -87,7 +85,7 @@ void Game::Render()
     Clear();
 
     // TODO: Add your rendering code here.
-	mGameWorld.renderObjects(m_world, m_view, m_proj);
+	mGameWorld.RenderObjects(m_world, m_view, m_proj);
 
 
     Present();
@@ -376,7 +374,7 @@ void Game::CreateResources()
 	m_view = Matrix::CreateLookAt(Vector3(15.f, 11.f, 30.f), Vector3(15.f, 11.f, 0.f), Vector3(0.f, 1.f, 0.f));
 	m_proj = Matrix::CreatePerspectiveFieldOfView(XM_PI / 4.f, float(backBufferWidth) / float(backBufferHeight), 0.1f, 50.f);
 	
-	GameplayHelpers::init(m_outputWidth, m_outputHeight, m_world, m_view, m_proj);
+	GameplayHelpers::Init(m_outputWidth, m_outputHeight, m_world, m_view, m_proj);
 }
 
 void Game::OnDeviceLost()

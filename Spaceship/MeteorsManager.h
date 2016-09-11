@@ -8,14 +8,14 @@ public:
 	MeteorsManager(World *world);
 	~MeteorsManager();
 
-	World* getWorld()const;
+	World* GetWorld()const;
 
-	void meteorDestroyed();
-	int getDestroyedMeteorsNumber()const;
+	void MeteorDestroyed();
+	int GetDestroyedMeteorsNumber()const;
 
-	void reset();
+	void Reset();
 
-	void update(float deltaTime);
+	void Update(float deltaTime);
 
 private:
 
@@ -28,8 +28,8 @@ private:
 
 	World *mWorldReference;
 
-	void spawnMeteor();
+	void SpawnMeteor();
 
-	void recalculateSpawnRate();
+	void RecalculateSpawnRate();
 };
 

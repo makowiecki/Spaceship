@@ -1,8 +1,6 @@
 #include "pch.h"
 #include "GameObject.h"
 
-#include "GameplayHelpers.h"
-
 
 GameObject::GameObject(const DirectX::SimpleMath::Vector3& newLocation, World* world)
 	:mDestroyed(false),
@@ -12,7 +10,7 @@ GameObject::GameObject(const DirectX::SimpleMath::Vector3& newLocation, World* w
 	mDestroyOffTheScreen(true),
 	mInstigator(nullptr)
 {
-	setLocation(newLocation);
+	SetLocation(newLocation);
 
 	mRenderObjectColor = DirectX::Colors::White;
 }
@@ -21,85 +19,85 @@ GameObject::~GameObject()
 {
 }
 
-void GameObject::setLocation(const DirectX::SimpleMath::Vector3 & newLocation)
+void GameObject::SetLocation(const DirectX::SimpleMath::Vector3 & newLocation)
 {
 	mLocation = newLocation;
 	mCollisionSphere.Center = mLocation;
 }
 
-void GameObject::move(const DirectX::SimpleMath::Vector3 & offset)
+void GameObject::Move(const DirectX::SimpleMath::Vector3 & offset)
 {
 	mLocation += offset;
 	mCollisionSphere.Center = mLocation;
 }
 
-const DirectX::SimpleMath::Vector3 & GameObject::getLocation() const
+const DirectX::SimpleMath::Vector3 & GameObject::GetLocation() const
 {
 	return mLocation;
 }
 
-void GameObject::setRotation(const DirectX::SimpleMath::Vector3 & newRotation)
+void GameObject::SetRotation(const DirectX::SimpleMath::Vector3 & newRotation)
 {
 	mRotation = newRotation;
 }
 
-void GameObject::rotate(const DirectX::SimpleMath::Vector3 & rotation)
+void GameObject::Rotate(const DirectX::SimpleMath::Vector3 & rotation)
 {
 	mRotation += rotation;
 }
 
-const DirectX::SimpleMath::Vector3 & GameObject::getRotation() const
+const DirectX::SimpleMath::Vector3 & GameObject::GetRotation() const
 {
 	return mRotation;
 }
 
-void GameObject::setScale(const DirectX::SimpleMath::Vector3 & newScale)
+void GameObject::SetScale(const DirectX::SimpleMath::Vector3 & newScale)
 {
 	mScale = newScale;
 }
 
-void GameObject::addScale(const DirectX::SimpleMath::Vector3 & addedScale)
+void GameObject::AddScale(const DirectX::SimpleMath::Vector3 & addedScale)
 {
 	mScale += addedScale;
 }
 
-const DirectX::SimpleMath::Vector3 & GameObject::getScale() const
+const DirectX::SimpleMath::Vector3 & GameObject::GetScale() const
 {
 	return mScale;
 }
 
-World * GameObject::getWorld() const
+World * GameObject::GetWorld() const
 {
 	return mReferenceToWorld;
 }
 
-void GameObject::destroy()
+void GameObject::Destroy()
 {
 	mDestroyed = true;
-	onDestroy();
+	OnDestroy();
 }
 
-bool GameObject::isDestroyed() const
+bool GameObject::IsDestroyed() const
 {
 	return mDestroyed;
 }
 
-void GameObject::setVelocity(float newVelocity)
+void GameObject::SetVelocity(float newVelocity)
 {
 	mVelocity = std::max(0.f, newVelocity);
 }
 
-void GameObject::addVelocity(float value)
+void GameObject::AddVelocity(float value)
 {
 	mVelocity += value;
 }
 
-float GameObject::getVelocity() const
+float GameObject::GetVelocity() const
 {
 	return mVelocity;
 }
 
-bool GameObject::collide(const GameObject & object)
+bool GameObject::Collide(const GameObject & object)
 {
 	if(&object == mInstigator ||
 	   object.mInstigator == this)
@@ -110,32 +108,32 @@ bool GameObject::collide(const GameObject & object)
 	return mCollisionSphere. Intersects(object.mCollisionSphere);
 }
 
-void GameObject::onHit(const GameObject & otherObject)
+void GameObject::OnCollision(const GameObject & otherObject)
 {
 }
 
-void GameObject::onDestroy()
+void GameObject::OnDestroy()
 {
 }
 
-void GameObject::update(float deltaTime)
+void GameObject::Update(float deltaTime)
 {
-	mScreenPosition = GameplayHelpers::projectOnScreen(mLocation);
+	mScreenPosition = GameplayHelpers::ProjectOnScreen(mLocation);
 
 	if(mDestroyOffTheScreen)
 	{
-		if(mScreenPosition.x > GameplayHelpers::getViewportSize().x ||
+		if(mScreenPosition.x > GameplayHelpers::GetViewportSize().x ||
 		   mScreenPosition.x  < 0.f ||
-		   mScreenPosition.y  > GameplayHelpers::getViewportSize().y ||
+		   mScreenPosition.y  > GameplayHelpers::GetViewportSize().y ||
 		   mScreenPosition.y < 0.f)
 		{
-			destroy();
+			Destroy();
 			return;
 		}
 	}
 }
 
-void GameObject::render(const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection)
+void GameObject::Render(const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection)
 {
 	using namespace DirectX::SimpleMath;
 
@@ -145,7 +143,7 @@ void GameObject::render(const DirectX::SimpleMath::Matrix& world, const DirectX:
 	mRenderObject->Draw(local, view, projection, mRenderObjectColor);
 }
 
-void GameObject::setInstigator(GameObject & instigator)
+void GameObject::SetInstigator(GameObject & instigator)
 {
 	mInstigator = &instigator;
 }

@@ -3,7 +3,7 @@
 
 #include <random>
 
-int Random::getRandom(int rangeBegin, int rangeEnd)
+int Random::GetRandom(int rangeBegin, int rangeEnd)
 {
 	static std::random_device rd;
 	static std::default_random_engine generator(rd());
@@ -13,7 +13,7 @@ int Random::getRandom(int rangeBegin, int rangeEnd)
 	return distribution(generator);
 }
 
-float Random::getRandom(float rangeBegin, float rangeEnd)
+float Random::GetRandom(float rangeBegin, float rangeEnd)
 {
 	static std::random_device rd;
 	static std::default_random_engine generator(rd());

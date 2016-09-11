@@ -2,9 +2,6 @@
 #include "Spaceship.h"
 
 #include "World.h"
-#include "InputManager.h"
-#include "GameplayHelpers.h"
-
 #include "Projectile.h"
 
 std::unique_ptr<DirectX::SpriteFont> Spaceship::mFont{ nullptr };
@@ -28,80 +25,81 @@ Spaceship::Spaceship(const DirectX::SimpleMath::Vector3& newLocation, World* wor
 	mProjectileSpeed = 10.f;
 	mShotRate = 2;
 
-	InputManager::bindAction(InputManager::ActionName::LEFT, std::bind(&Spaceship::moveLeft, this, std::placeholders::_1));
-	InputManager::bindAction(InputManager::ActionName::RIGHT, std::bind(&Spaceship::moveRight, this, std::placeholders::_1));
-	InputManager::bindAction(InputManager::ActionName::SHOOT, std::bind(&Spaceship::shootProjectile, this, std::placeholders::_1));
+	InputManager::BindAction(InputManager::ActionName::LEFT, std::bind(&Spaceship::MoveLeft, this, std::placeholders::_1));
+	InputManager::BindAction(InputManager::ActionName::RIGHT, std::bind(&Spaceship::MoveRight, this, std::placeholders::_1));
+	InputManager::BindAction(InputManager::ActionName::SHOOT, std::bind(&Spaceship::ShootProjectile, this, std::placeholders::_1));
 }
 
 Spaceship::~Spaceship()
 {
 }
 
-void Spaceship::moveRight(float deltaTime)
+void Spaceship::MoveRight(float deltaTime)
 {
-	if(mScreenPosition.x + mVelocity*deltaTime + 20.f > GameplayHelpers::getViewportSize().x) //20.f - workaround for not having 3d blocking areas
+	if(mScreenPosition.x + mVelocity*deltaTime + 20.f > GameplayHelpers::GetViewportSize().x) //20.f - workaround for not having 3d blocking areas
 	{
 		return;
 	}
 
-	move(DirectX::SimpleMath::Vector3(mVelocity*deltaTime, 0.f, 0.f));
+	Move(DirectX::SimpleMath::Vector3(mVelocity*deltaTime, 0.f, 0.f));
 }
 
-void Spaceship::moveLeft(float deltaTime)
+void Spaceship::MoveLeft(float deltaTime)
 {
 	if(mScreenPosition.x - mVelocity*deltaTime - 20.f < 0) //20.f - workaround for not having 3d blocking areas
 	{
 		return;
 	}
 
-	move(DirectX::SimpleMath::Vector3(-mVelocity*deltaTime, 0.f, 0.f));
+	Move(DirectX::SimpleMath::Vector3(-mVelocity*deltaTime, 0.f, 0.f));
 }
 
-void Spaceship::shootProjectile(float deltaTime)
+void Spaceship::ShootProjectile(float deltaTime)
 {
 	if(mShootTimer > 1.f / mShotRate)
 	{
-		DirectX::SimpleMath::Vector3 projectileLocation(getLocation());
+		DirectX::SimpleMath::Vector3 projectileLocation(GetLocation());
 		projectileLocation.y += mProjectileSpawnOffset;
 
-		GameObject* projectile = getWorld()->spawnObject<Projectile>(projectileLocation);
-		projectile->setVelocity(mProjectileSpeed);
-		projectile->setInstigator(*this);
+		GameObject* projectile = GetWorld()->SpawnObject<Projectile>(projectileLocation);
+		projectile->SetVelocity(mProjectileSpeed);
+		projectile->SetInstigator(*this);
 
 		mShootTimer = 0.f;
 	}
 }
 
-void Spaceship::setGetMeteorsDestroyedFunction(const std::function<int()>& function)
+void Spaceship::SetGetMeteorsDestroyedFunction(const std::function<int()>& function)
 {
 	mGetDestroyedMeteors = function;
 }
 
-void Spaceship::init(ID3D11DeviceContext * deviceContext, ID3D11Device* device)
+void Spaceship::Init(ID3D11DeviceContext * deviceContext, ID3D11Device* device)
 {
 	mRenderObjectAsset = DirectX::GeometricPrimitive::CreateCone(deviceContext, 1.f, 0.5f);
 	mFont = std::make_unique<DirectX::SpriteFont>(device, L"Resources/italic.spritefont");
 	mSpriteBatch = std::make_unique<DirectX::SpriteBatch>(deviceContext);
 }
 
-void Spaceship::onHit(const GameObject & otherObject)
+void Spaceship::OnCollision(const GameObject & otherObject)
 {
-	getWorld()->reset();
+	GetWorld()->Reset();
 }
 
-void Spaceship::update(float deltaTime)
+void Spaceship::Update(float deltaTime)
 {
-	GameObject::update(deltaTime);
+	GameObject::Update(deltaTime);
 
 	mShootTimer += deltaTime;
 }
 
-void Spaceship::render(const DirectX::SimpleMath::Matrix & world, const DirectX::SimpleMath::Matrix & view, const DirectX::SimpleMath::Matrix & projection)
+void Spaceship::Render(const DirectX::SimpleMath::Matrix & world, const DirectX::SimpleMath::Matrix & view, const DirectX::SimpleMath::Matrix & projection)
 {
-	GameObject::render(world, view, projection);
+	GameObject::Render(world, view, projection);
 
 	using namespace DirectX;
 
+	//should be in HUD class
 	mSpriteBatch->Begin();
 
 	mGetDestroyedMeteors();
