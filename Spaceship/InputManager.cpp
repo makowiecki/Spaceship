@@ -3,14 +3,6 @@
 
 std::multimap<InputManager::ActionName, std::function<void(float)>> InputManager::mActionNamesFunctions{};
 
-InputManager::InputManager()
-{
-}
-
-
-InputManager::~InputManager()
-{
-}
 
 void InputManager::ProcessKeyboardState(const DirectX::Keyboard::State & keyboardState, float deltaTime)
 {

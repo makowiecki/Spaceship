@@ -5,10 +5,12 @@
 class InputManager
 {
 public:
-	InputManager();
-	~InputManager();
+	InputManager() = delete;
+	InputManager(const InputManager&) = delete;
+	~InputManager() = delete;
+	InputManager& operator=(const InputManager&) = delete;
 
-	enum class ActionName{ LEFT, RIGHT, SHOOT };
+	enum class ActionName { LEFT, RIGHT, SHOOT };
 
 	/** Must be called in update to properly respond to pressed keys and to call every assigned function */
 	static void ProcessKeyboardState(const DirectX::Keyboard::State& keyboardState, float deltaTime);
