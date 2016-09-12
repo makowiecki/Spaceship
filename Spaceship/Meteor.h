@@ -11,6 +11,8 @@ public:
 
 	virtual void OnCollision(const GameObject& otherObject)override;
 
+	virtual void OnDestroy()override;
+
 	void Update(float deltaTime)override;
 
 protected:

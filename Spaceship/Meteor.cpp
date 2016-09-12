@@ -40,11 +40,12 @@ void Meteor::Init(ID3D11DeviceContext * deviceContext)
 
 void Meteor::OnCollision(const GameObject & otherObject)
 {
+	GameObject::OnCollision(otherObject);
+
 	const Meteor *otherMeteor = dynamic_cast<const Meteor*>(&otherObject);
 
 	if(!otherMeteor)
 	{
-		GetWorld()->OnMeteorDestroyed(); // TODO: add this to onDestroy function
 		Destroy();
 	}
 	else // move if collide by other meteor
@@ -57,6 +58,13 @@ void Meteor::OnCollision(const GameObject & otherObject)
 			mVelocityBuff += 2.5f;
 		}
 	}
+}
+
+void Meteor::OnDestroy()
+{
+	GameObject::OnDestroy();
+
+	GetWorld()->OnMeteorDestroyed();
 }
 
 void Meteor::Update(float deltaTime)
