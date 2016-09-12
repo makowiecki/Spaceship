@@ -8,7 +8,8 @@ std::shared_ptr<DirectX::GeometricPrimitive> Meteor::mRenderObjectAsset{ nullptr
 Meteor::Meteor(const DirectX::SimpleMath::Vector3& newLocation, World *world)
 	:GameObject(newLocation, world),
 	mDirectionDeviation(0.35f),
-	mVelocityDeviation(1.f)
+	mVelocityDeviation(1.f),
+	mVelocityBuff(0.f)
 {
 	mRenderObject = mRenderObjectAsset;
 		
@@ -43,12 +44,18 @@ void Meteor::OnCollision(const GameObject & otherObject)
 
 	if(!otherMeteor)
 	{
-		GetWorld()->OnMeteorDestroyed();
+		GetWorld()->OnMeteorDestroyed(); // TODO: add this to onDestroy function
 		Destroy();
 	}
-	else // bounce if hit other meteor
+	else // move if collide by other meteor
 	{
+		const float thisLocationY = GetLocation().y;
+		const float otherLocationY = otherObject.GetLocation().y;
 
+		if(thisLocationY < otherLocationY) //this is below other
+		{
+			mVelocityBuff += 2.5f;
+		}
 	}
 }
 
@@ -56,6 +63,10 @@ void Meteor::Update(float deltaTime)
 {
 	GameObject::Update(deltaTime);
 
-	Move(mDirectionVector * deltaTime);
+	mVelocityBuff -= 3.f*deltaTime; //for max 3 seconds (possibly a class property)
+	mVelocityBuff = std::max(mVelocityBuff, 1.f); // min value (possibly a class property)
+	mVelocityBuff = std::min(mVelocityBuff, 2.5f); // max value (possibly a class property)
+
+	Move(mDirectionVector * deltaTime *mVelocityBuff);
 	Rotate(mInitRotation * deltaTime);
 }

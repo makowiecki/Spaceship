@@ -18,6 +18,8 @@ protected:
 	DirectX::SimpleMath::Vector3 mDirectionVector;
 	DirectX::SimpleMath::Vector3 mInitRotation; // degrees per second
 
+	float mVelocityBuff;
+
 	float mDirectionDeviation;
 	float mVelocityDeviation;
 
