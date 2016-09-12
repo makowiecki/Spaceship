@@ -28,7 +28,7 @@ DirectX::SimpleMath::Vector2 GameplayHelpers::GetViewportSize()
 	return DirectX::SimpleMath::Vector2(mViewport.width, mViewport.height);
 }
 
-DirectX::SimpleMath::Vector2 GameplayHelpers::ProjectOnScreen(const DirectX::SimpleMath::Vector3 & worldLocation/*, const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection*/)
+DirectX::SimpleMath::Vector2 GameplayHelpers::ProjectOnScreen(const DirectX::SimpleMath::Vector3 & worldLocation)
 {
 	DirectX::SimpleMath::Vector3 screenPosition = mViewport.Project(worldLocation, *m_projection_ptr, *m_view_ptr, *m_world_ptr);
 
@@ -37,6 +37,8 @@ DirectX::SimpleMath::Vector2 GameplayHelpers::ProjectOnScreen(const DirectX::Sim
 
 DirectX::SimpleMath::Vector3 GameplayHelpers::UnprojectOnScreen(const DirectX::SimpleMath::Vector2 & screenPosition)
 {
+	//mViewport.UnProject() doesn't work well
+
 	using namespace DirectX::SimpleMath;
 	
 	Vector3 nearSource(screenPosition.x, screenPosition.y, 0.f);
