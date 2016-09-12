@@ -71,10 +71,10 @@ void Meteor::Update(float deltaTime)
 {
 	GameObject::Update(deltaTime);
 
-	mVelocityBuff -= 3.f*deltaTime; //for max 3 seconds (possibly a class property)
+	mVelocityBuff -= 3.f * deltaTime; //for max 3 seconds (possibly a class property)
 	mVelocityBuff = std::max(mVelocityBuff, 1.f); // min value (possibly a class property)
 	mVelocityBuff = std::min(mVelocityBuff, 2.5f); // max value (possibly a class property)
 
-	Move(mDirectionVector * deltaTime *mVelocityBuff);
+	Move(mDirectionVector * deltaTime * mVelocityBuff);
 	Rotate(mInitRotation * deltaTime);
 }

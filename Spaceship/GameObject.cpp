@@ -107,6 +107,11 @@ float GameObject::GetVelocity() const
 	return mVelocity;
 }
 
+void GameObject::SetInstigator(GameObject & instigator)
+{
+	mInstigator = &instigator;
+}
+
 bool GameObject::Collide(const GameObject & object)
 {
 	if(&object == mInstigator ||
@@ -151,9 +156,4 @@ void GameObject::Render(const DirectX::SimpleMath::Matrix& world, const DirectX:
 
 	Matrix local = Matrix::CreateScale(mScale) * Matrix::CreateFromYawPitchRoll(mRotation.y * DirectX::XM_PI / 180.f, mRotation.x * DirectX::XM_PI / 180.f, mRotation.z * DirectX::XM_PI / 180.f) *  Matrix::CreateTranslation(mLocation) * world;
 	mRenderObject->Draw(local, view, projection, mRenderObjectColor);
-}
-
-void GameObject::SetInstigator(GameObject & instigator)
-{
-	mInstigator = &instigator;
 }
