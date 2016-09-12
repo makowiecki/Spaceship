@@ -15,8 +15,7 @@ Spaceship::Spaceship(const DirectX::SimpleMath::Vector3& newLocation, World* wor
 {
 	mRenderObject = mRenderObjectAsset;
 
-	mCollisionSphere.Center = mLocation;
-	mCollisionSphere.Radius = mScale.x / 2; // div by 2 because in creatin is diameter
+	SetScale(DirectX::SimpleMath::Vector3(1.f, 0.5f, 1.f));
 
 	mDestroyOffTheScreen = false;
 
@@ -76,7 +75,7 @@ void Spaceship::SetGetMeteorsDestroyedFunction(const std::function<int()>& funct
 
 void Spaceship::Init(ID3D11DeviceContext * deviceContext, ID3D11Device* device)
 {
-	mRenderObjectAsset = DirectX::GeometricPrimitive::CreateCone(deviceContext, 1.f, 0.5f);
+	mRenderObjectAsset = DirectX::GeometricPrimitive::CreateCone(deviceContext);
 	mFont = std::make_unique<DirectX::SpriteFont>(device, L"Resources/italic.spritefont");
 	mSpriteBatch = std::make_unique<DirectX::SpriteBatch>(deviceContext);
 }

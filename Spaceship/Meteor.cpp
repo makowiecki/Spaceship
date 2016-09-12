@@ -12,17 +12,14 @@ Meteor::Meteor(const DirectX::SimpleMath::Vector3& newLocation, World *world)
 {
 	mRenderObject = mRenderObjectAsset;
 		
-	float randSize = Random::GetRandom(0.75f, 2.f);
-	float lowerBound = randSize - 0.45f;
-	float upperBound = randSize + 0.45f;
-	mScale = DirectX::SimpleMath::Vector3(Random::GetRandom(lowerBound, upperBound), Random::GetRandom(lowerBound, upperBound), Random::GetRandom(lowerBound, upperBound));
+	const float randSize = Random::GetRandom(0.75f, 2.f);
+	const float lowerBound = randSize - 0.45f;
+	const float upperBound = randSize + 0.45f;
+	SetScale(DirectX::SimpleMath::Vector3(Random::GetRandom(lowerBound, upperBound), Random::GetRandom(lowerBound, upperBound), Random::GetRandom(lowerBound, upperBound)));
 
-	mRotation = DirectX::SimpleMath::Vector3(Random::GetRandom(0.25f, 360.f), Random::GetRandom(0.25f, 360.f), Random::GetRandom(0.25f, 360.f));
+	SetRotation(DirectX::SimpleMath::Vector3(Random::GetRandom(0.25f, 360.f), Random::GetRandom(0.25f, 360.f), Random::GetRandom(0.25f, 360.f)));
 
 	mRenderObjectColor = DirectX::Colors::RosyBrown;
-
-	mCollisionSphere.Center = mLocation;
-	mCollisionSphere.Radius = mScale.x / 2; // because size is from left to right and radius is from center
 
 	mVelocity = 3.f;
 	mVelocity += Random::GetRandom(-mVelocityDeviation, mVelocityDeviation);

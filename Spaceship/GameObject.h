@@ -39,12 +39,8 @@ public:
 	virtual void Update(float deltaTime)=0;
 	
 	virtual void Render(const DirectX::SimpleMath::Matrix& world, const DirectX::SimpleMath::Matrix& view, const DirectX::SimpleMath::Matrix& projection);
-	
+		
 protected:
-
-	DirectX::SimpleMath::Vector3 mLocation;
-	DirectX::SimpleMath::Vector3 mRotation;
-	DirectX::SimpleMath::Vector3 mScale;
 
 	DirectX::SimpleMath::Color mRenderObjectColor;
 
@@ -59,12 +55,15 @@ protected:
 	GameObject *mInstigator;
 
 	std::shared_ptr<DirectX::GeometricPrimitive> mRenderObject;
-	DirectX::BoundingSphere mCollisionSphere;
 	
 private:
 
-	World* mReferenceToWorld;
+	DirectX::SimpleMath::Vector3 mLocation;
+	DirectX::SimpleMath::Vector3 mRotation;
+	DirectX::SimpleMath::Vector3 mScale;
 
-	static std::shared_ptr<DirectX::GeometricPrimitive> mCollisionObjectAsSet;
+	DirectX::BoundingOrientedBox mCollisionBox;
+
+	World* mReferenceToWorld;
 };
 

@@ -9,15 +9,11 @@ Projectile::Projectile(const DirectX::SimpleMath::Vector3& newLocation, World* w
 {
 	mRenderObject = mRenderObjectAsset;
 
-	mScale = DirectX::SimpleMath::Vector3(0.5f, 0.5f, 0.5f);
+	SetScale(DirectX::SimpleMath::Vector3(0.4f, 0.6f, 0.5f));
 	mRenderObjectColor = DirectX::Colors::Red;
-
-	mCollisionSphere.Center = mLocation;
-	mCollisionSphere.Radius = mScale.x / 2; // div by 2 because in creatin is diameter
 
 	mVelocity = 5.f;
 }
-
 
 Projectile::~Projectile()
 {

@@ -6,11 +6,11 @@ GameObject::GameObject(const DirectX::SimpleMath::Vector3& newLocation, World* w
 	:mDestroyed(false),
 	mVelocity(0.f),
 	mReferenceToWorld(world),
-	mScale(1.f, 1.f, 1.f),
 	mDestroyOffTheScreen(true),
 	mInstigator(nullptr)
 {
 	SetLocation(newLocation);
+	SetScale(DirectX::SimpleMath::Vector3(1.f, 1.f, 1.f));
 
 	mRenderObjectColor = DirectX::Colors::White;
 }
@@ -22,13 +22,15 @@ GameObject::~GameObject()
 void GameObject::SetLocation(const DirectX::SimpleMath::Vector3 & newLocation)
 {
 	mLocation = newLocation;
-	mCollisionSphere.Center = mLocation;
+
+	mCollisionBox.Center = mLocation;
 }
 
 void GameObject::Move(const DirectX::SimpleMath::Vector3 & offset)
 {
 	mLocation += offset;
-	mCollisionSphere.Center = mLocation;
+
+	mCollisionBox.Center = mLocation;
 }
 
 const DirectX::SimpleMath::Vector3 & GameObject::GetLocation() const
@@ -39,11 +41,15 @@ const DirectX::SimpleMath::Vector3 & GameObject::GetLocation() const
 void GameObject::SetRotation(const DirectX::SimpleMath::Vector3 & newRotation)
 {
 	mRotation = newRotation;
+
+	mCollisionBox.Orientation = DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(mRotation.y * DirectX::XM_PI / 180.f, mRotation.x * DirectX::XM_PI / 180.f, mRotation.z * DirectX::XM_PI / 180.f);
 }
 
 void GameObject::Rotate(const DirectX::SimpleMath::Vector3 & rotation)
 {
 	mRotation += rotation;
+
+	mCollisionBox.Orientation = DirectX::SimpleMath::Quaternion::CreateFromYawPitchRoll(mRotation.y * DirectX::XM_PI / 180.f, mRotation.x * DirectX::XM_PI / 180.f, mRotation.z * DirectX::XM_PI / 180.f);
 }
 
 const DirectX::SimpleMath::Vector3 & GameObject::GetRotation() const
@@ -54,11 +60,15 @@ const DirectX::SimpleMath::Vector3 & GameObject::GetRotation() const
 void GameObject::SetScale(const DirectX::SimpleMath::Vector3 & newScale)
 {
 	mScale = newScale;
+
+	mCollisionBox.Extents = DirectX::SimpleMath::Vector3(mScale.x / 2.f, mScale.y / 2.f, mScale.z / 2.f);
 }
 
 void GameObject::AddScale(const DirectX::SimpleMath::Vector3 & addedScale)
 {
 	mScale += addedScale;
+
+	mCollisionBox.Extents = DirectX::SimpleMath::Vector3(mScale.x / 2.f, mScale.y / 2.f, mScale.z / 2.f);
 }
 
 const DirectX::SimpleMath::Vector3 & GameObject::GetScale() const
@@ -105,7 +115,7 @@ bool GameObject::Collide(const GameObject & object)
 		return false;
 	}
 
-	return mCollisionSphere. Intersects(object.mCollisionSphere);
+	return mCollisionBox.Intersects(object.mCollisionBox);
 }
 
 void GameObject::OnCollision(const GameObject & otherObject)
