@@ -2,6 +2,7 @@
 
 #include <map>
 
+/** Manages input from keyboard and handles responding to it. */
 class InputManager
 {
 public:

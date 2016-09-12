@@ -1,5 +1,6 @@
 #pragma once
 
+/** Provides static function useful during gameplay. */
 class GameplayHelpers
 {
 public:
