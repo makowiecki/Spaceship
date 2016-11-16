@@ -1,4 +1,4 @@
-# Spaceship
+s# Spaceship
 Simple DirectX spaceship game
 
 ##Rules:
@@ -12,9 +12,9 @@ If projectile hit meteor both get destroyed.
 If meteor hit spaceship the game restarts.
 
 ##Movement:
-- A or left moves spaceship left
-- D or right moves spaceship right
-- space fire projectile
+- A or Left moves spaceship left
+- D or Right moves spaceship right
+- Space fires projectile
 
 ##Development
 This game was created in Visual Studio 2015 using DirectX 11 and [DirectXTK](https://github.com/Microsoft/DirectXTK).
